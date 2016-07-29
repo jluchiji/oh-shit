@@ -35,7 +35,7 @@ test('unknown code', t => {
 
   t.is(err.status, 500);
   t.is(err.message, 'Shit Happened!');
-  t.is(err.code, 'not_specified');
+  t.is(err.code, 'unknown_error');
 
 });
 
@@ -44,7 +44,17 @@ test('null code', t => {
 
   const err = OhShit();
 
-  t.is(err.code, 'not_specified');
+  t.is(err.code, 'unknown_error');
   t.is(err.message, 'Internal Server Error');
+
+});
+
+
+test('unknown status', t => {
+
+  const err = OhShit(null, { status: 999 });
+
+  t.is(err.code, 'unknown_error');
+  t.is(err.message, 'Unknown Error');
 
 });

@@ -53,8 +53,11 @@ function OhShit(code, {
     flags = Object.assign({ }, predef.flags, flags);
 
   } else {
-    message = code || HttpErrors[status].message;
-    code = 'not_specified';
+
+    const http = HttpErrors[status];
+
+    message = code || (http && http.message) || 'Unknown Error';
+    code = 'unknown_error';
   }
 
 
