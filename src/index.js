@@ -4,7 +4,9 @@
  * @author  Denis Luchkin-Zhou <denis@ricepo.com>
  * @license MIT
  */
+const HttpErrors   = require('./data/http-errors');
 const OhShitError  = require('./error');
+
 module.exports     = OhShit;
 
 
@@ -23,6 +25,7 @@ function OhShit(code, opts) {
  */
 OhShit.Error = OhShitError;
 OhShit.load = OhShitError.load;
+OhShit.wrap = OhShitError.wrap;
 OhShit.inflate = OhShitError.inflate;
 
 
@@ -30,4 +33,4 @@ OhShit.inflate = OhShitError.inflate;
 /**
  * Load the predefined config data
  */
-OhShitError.load(require('./data/http-errors'));
+OhShitError.load(HttpErrors);

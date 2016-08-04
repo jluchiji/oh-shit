@@ -35,7 +35,7 @@ class OhShitError extends Error {
    * @param  {Object} opts Additional options and data
    * @return {Object}      OhShitError instance
    */
-  constructor(code, opts = { }) {
+  constructor(code = 500, opts = { }) {
     const { name, message, status } = opts;
 
 
@@ -88,10 +88,7 @@ class OhShitError extends Error {
 
 
     /* The rest of opts go into err.details */
-    this.details = _
-      .chain(opts)
-      .omit(...fields, 'cause')
-      .value();
+    this.details = _.omit(opts, ...fields, 'cause');
 
   }
 
@@ -121,6 +118,8 @@ class OhShitError extends Error {
     /* Serialize all wrapped errors */
     if (this.cause && this.cause.ohshit && !this.cause.serialized) {
       result.cause = this.cause.deflate();
+    } else if (this.cause instanceof Error) {
+      result.cause = _.pick(this.cause, Object.getOwnPropertyNames(this.cause));
     } else {
       result.cause = this.cause;
     }
@@ -149,17 +148,14 @@ class OhShitError extends Error {
       do { chain.push(error); } while ((error = error.cause));
 
       /* Error name should be first 3 errors */
-      summary.name = _
-        .chain(chain)
+      summary.name = _(chain)
         .take(3)
         .map('name')
-        .join(' ← ')
-        .value();
+        .join(' ← ');
       if (chain.length > 3) { summary.name = `${summary.name} ...`; }
 
       /* Include causes path */
-      summary.causes = _
-        .chain(chain)
+      summary.causes = _(chain)
         .map(i => _.pick(i, ...fields, 'stack'))
         .drop(1)
         .value();
@@ -198,10 +194,8 @@ class OhShitError extends Error {
    */
   static inflate(data) {
 
-    /* Refuse to deserialize non-oh-shit stuff */
-    if (!data || !data.ohshit || !data.serialized) {
-      return data;
-    }
+    /* Return null if data is falsy */
+    if (!data) { return null; }
 
 
     /* Construct the code and opts object */
@@ -220,9 +214,27 @@ class OhShitError extends Error {
 
     /* Overwrite the stack trace */
     error.stack = data.stack;
+    error.details = data.details;
 
 
     return error;
+  }
+
+
+
+  /**
+   * @static
+   * Wraps a given error into a given OhShit error, and rethrows it
+   */
+  static wrap(code, opts) {
+    return (err) => {
+
+      /* Create the wrapped error */
+      const _opts = _.assign({ cause: err }, opts);
+      const shit = new OhShitError(code, _opts);
+
+      throw shit;
+    };
   }
 
 
