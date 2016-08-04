@@ -33,9 +33,9 @@ test('all = true', t => {
 
   t.is(s.name, 'InternalServerError ← NotFoundError');
   t.is(s.stack, e.stack);
-  t.is(s.causes.length, 1);
-  t.is(s.causes[0].status, 404);
-  t.is(s.causes[0].stack, e.cause.stack);
+  t.is(s.causes.length, 2);
+  t.is(s.causes[1].status, 404);
+  t.is(s.causes[1].stack, e.cause.stack);
 
 });
 
@@ -52,10 +52,10 @@ test('long chain', t => {
   const s = e.summary(true);
 
   t.is(s.name, 'InternalServerError ← NotFoundError ← BadRequestError ...');
-  t.is(s.causes.length, 3);
+  t.is(s.causes.length, 4);
 
   const n = _.map(s.causes, 'status');
 
-  t.deepEqual(n, [ 404, 400, 403 ]);
+  t.deepEqual(n, [ 500, 404, 400, 403 ]);
 
 });

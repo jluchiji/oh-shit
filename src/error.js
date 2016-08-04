@@ -157,7 +157,6 @@ class OhShitError extends Error {
       /* Include causes path */
       summary.causes = _(chain)
         .map(i => _.pick(i, ...fields, 'stack'))
-        .drop(1)
         .value();
     }
 
