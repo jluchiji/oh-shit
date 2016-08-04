@@ -76,18 +76,21 @@ test('error wrapping', t => {
   });
 
   t.is(err.status, 500);
-  t.is(err.message, 'foobar');
+  t.is(err.message, 'Internal Server Error');
 
 });
 
 
-test('sensitive error wrapping', t => {
+test('error unwrapping', t => {
 
   const err = OhShit(500, {
-    error: OhShit(404, { message: 'foobar' }, { flags: { sensitive: true } })
+    error: OhShit(404, { message: 'foobar' })
   });
 
-  t.is(err.status, 500);
-  t.is(err.message, 'Internal Server Error');
+  const e = OhShit.unwrap(err);
+
+  t.is(e.status, 500);
+  t.is(e.message, 'foobar');
+  t.is(e.data.parent, err);
 
 });

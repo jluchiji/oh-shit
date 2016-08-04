@@ -39,21 +39,30 @@ function OhShit(code, data, opts) {
 
 
   /**
+   * Allow errors as opts
+   */
+  if (opts instanceof Error) {
+    opts = { wrap: opts };
+  }
+
+
+  /**
    * Destructure opts
    */
   let {
     message,
     status = 500,
     flags = { },
-    error = null
+    wrap = null
   } = opts;
+  const error = wrap || opts.error || null;
 
 
   /**
    * Allow direct calls without new keyword
    */
   if (!(this instanceof OhShit)) {
-    return new OhShit(code, { status, message, data, flags, error });
+    return new OhShit(code, data, opts);
   }
 
 
@@ -61,17 +70,6 @@ function OhShit(code, data, opts) {
    * Always set the ohshit flag to true for easier detection
    */
   this.ohshit = true;
-
-
-  /**
-   * Copy inner error's message if:
-   *  - We are wrapping an error
-   *  - We don't have an explicit message set
-   *  - The inner error is not sensitive
-   */
-  if (error && !error.sensitive && !message) {
-    message = error.message;
-  }
 
 
   /**
@@ -105,6 +103,29 @@ function OhShit(code, data, opts) {
 
 }
 Util.inherits(OhShit, Error);
+
+
+/**
+ * Function to unwrap errors
+ * Since error instances may be serialized, we make this a static method
+ */
+OhShit.unwrap = function(err) {
+  const data = { };
+
+  let current = err;
+  while (current.wrapped) {
+    Object.assign(data, current.data);
+    current = current.wrapped;
+  }
+
+  /* Keep original error status */
+  current.status = err.status;
+  current.data = data;
+  current.data.parent = err;
+
+  return current;
+};
+
 
 
 /**
