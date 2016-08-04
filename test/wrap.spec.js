@@ -2,7 +2,7 @@
  * test/wrap.spec.js
  *
  * @author  Denis Luchkin-Zhou <denis@ricepo.com>
- * @license 2015-16 (C) Ricepo LLC. All Rights Reserved.
+ * @license WTFPL
  */
 const test         = require('ava');
 const _            = require('lodash');
