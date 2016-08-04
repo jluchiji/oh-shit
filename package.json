@@ -27,7 +27,9 @@
     "test": "./node_modules/.bin/ava",
     "prepublish": "./node_modules/.bin/gulp rebuild"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.14.1"
+  },
   "devDependencies": {
     "ava": "^0.15.2",
     "babel-core": "^6.11.4",

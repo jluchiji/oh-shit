@@ -4,6 +4,7 @@
  * @author  Denis Luchkin-Zhou <denis@ricepo.com>
  * @license MIT
  */
+/* eslint prefer-const: 1 */
 const Util         = require('util');
 const HttpErrors   = require('./http-errors');
 
@@ -19,13 +20,33 @@ const codes = { };
 /**
  * The error generator
  */
-function OhShit(code, {
-  message,
-  status = 500,
-  data = { },
-  flags = { },
-  error = null
-} = { }) {
+function OhShit(code, data, opts) {
+
+
+  /**
+   * data is optional
+   */
+  if (typeof opts === 'undefined') {
+    opts = data || { };
+    data = opts.data || { };
+  }
+
+
+  /**
+   * opts defaults
+   */
+  opts = opts || { };
+
+
+  /**
+   * Destructure opts
+   */
+  let {
+    message,
+    status = 500,
+    flags = { },
+    error = null
+  } = opts;
 
 
   /**
@@ -43,20 +64,31 @@ function OhShit(code, {
 
 
   /**
+   * Copy inner error's message if:
+   *  - We are wrapping an error
+   *  - We don't have an explicit message set
+   *  - The inner error is not sensitive
+   */
+  if (error && !error.sensitive && !message) {
+    message = error.message;
+  }
+
+
+  /**
    * Retrieve the error code information, or set our defaults
    */
   if (codes[code]) {
     const predef = codes[code];
 
     status = predef.status;
-    message = predef.message;
+    message = message || predef.message;
     flags = Object.assign({ }, predef.flags, flags);
 
   } else {
 
     const http = HttpErrors[status];
 
-    message = code || (http && http.message) || 'Unknown Error';
+    message = message || code || (http && http.message) || 'Unknown Error';
     code = 'unknown_error';
   }
 

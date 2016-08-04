@@ -58,3 +58,36 @@ test('unknown status', t => {
   t.is(err.message, 'Unknown Error');
 
 });
+
+
+test('data shorthand', t => {
+
+  const err = new OhShit(500, { foo: 'bar' }, null);
+
+  t.is(err.data.foo, 'bar');
+
+});
+
+
+test('error wrapping', t => {
+
+  const err = OhShit(500, {
+    error: OhShit(404, { message: 'foobar' })
+  });
+
+  t.is(err.status, 500);
+  t.is(err.message, 'foobar');
+
+});
+
+
+test('sensitive error wrapping', t => {
+
+  const err = OhShit(500, {
+    error: OhShit(404, { message: 'foobar' }, { flags: { sensitive: true } })
+  });
+
+  t.is(err.status, 500);
+  t.is(err.message, 'Internal Server Error');
+
+});
