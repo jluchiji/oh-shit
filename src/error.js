@@ -155,9 +155,7 @@ class OhShitError extends Error {
       if (chain.length > 3) { summary.name = `${summary.name} ...`; }
 
       /* Include causes path */
-      summary.causes = _(chain)
-        .map(i => _.pick(i, ...fields, 'stack'))
-        .value();
+      summary.causes = _.map(chain, i => _.pick(i, ...fields, 'stack'));
     }
 
     return summary;
