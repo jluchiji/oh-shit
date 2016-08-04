@@ -16,7 +16,7 @@ test(t => {
   const s = e.summary();
 
   t.deepEqual(s, {
-    name: 'InternalServerError',
+    name: 'Internal Server Error',
     code: 500,
     status: 500,
     message: 'Internal Server Error',

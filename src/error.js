@@ -56,13 +56,11 @@ class OhShitError extends Error {
 
     /* Generate the default name */
     if (!meta.name) {
-      const prefix = _
-        .chain(meta.message)
-        .camelCase()
-        .upperFirst()
-        .replace(/error$/i, '')
+      meta.name = _
+        .chain(code)
+        .replace(/[-_]/, ' ')
+        .capitalize()
         .value();
-      meta.name = `${prefix}Error`;
     }
 
 
@@ -177,7 +175,7 @@ class OhShitError extends Error {
    * @return {String}      String representation of the error
    */
   toString(all = false) {
-    return `[OhShitError: ${this.summary(all).name}]`;
+    return `OhShitError: ${this.summary(all).name}`;
   }
 
 
@@ -204,7 +202,7 @@ class OhShitError extends Error {
 
     /* Construct the code and opts object */
     const code = data.code;
-    const opts = _.omit(data, 'stack', 'details');
+    const opts = _.omit(data, 'stack', 'details', 'ohshit', 'serialized');
     opts.cause = OhShitError.inflate(data.cause);
 
 

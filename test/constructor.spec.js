@@ -17,7 +17,7 @@ test(t => {
   t.true(e instanceof OhShit.Error);
 
   t.is(e.status, 500);
-  t.is(e.name, 'InternalServerError');
+  t.is(e.name, 'Internal Server Error');
   t.is(e.message, 'Internal Server Error');
 
 });
@@ -28,7 +28,7 @@ test('predefined', t => {
   const e = OhShit(404);
 
   t.is(e.status, 404);
-  t.is(e.name, 'NotFoundError');
+  t.is(e.name, 'Not Found');
   t.is(e.message, 'Not Found');
 
 });
@@ -36,9 +36,9 @@ test('predefined', t => {
 
 test('name in opts', t => {
 
-  const e = OhShit(404, { name: 'HorribleError' });
+  const e = OhShit(404, { name: 'Horrible Error' });
 
-  t.is(e.name, 'HorribleError');
+  t.is(e.name, 'Horrible Error');
   t.is(e.message, 'Not Found');
 
 });
@@ -64,7 +64,7 @@ test('manual override', t => {
     status: 503
   });
 
-  t.is(e.name, 'CrashAndBurnError');
+  t.is(e.name, 'Not Found');
   t.is(e.message, 'Crash and burn');
   t.is(e.status, 503);
 
