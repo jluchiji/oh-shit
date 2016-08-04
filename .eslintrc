@@ -1,4 +1,0 @@
-{
-  "extends": "ricepo-base",
-  "parser": "babel-eslint"
-}

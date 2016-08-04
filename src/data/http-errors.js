@@ -3,7 +3,7 @@
  *
  * @author  Bob Holt <bobholt@gmail.com>
  * @author  Denis Luchkin-Zhou <denis@ricepo.com>
- * @license MIT
+ * @license WTFPL
  */
 module.exports = {
 

@@ -2,12 +2,15 @@
 
 > Yet another HTTP error library
 
-OhShit was designed with services like [Sentry](http://getsentry.com) in mind, where simply throwing
-a plain `Error` does not provide enough information. OnShit! also provides developers the ability
-to choose which HTTP error codes to return with the response.
+OhShit was designed with services like [Sentry](http://getsentry.com) and
+[Seneca](https://github.com/senecajs/seneca) in mind, where simply throwing
+a plain `Error` does not provide enough information. OnShit! also provides
+developers the ability to choose which HTTP error codes to return with the
+response.
 
-Also, it is possible to control the exact response via flags. For example, if an error is marked
-`sensitive` then it would be a bad idea to divulge details to the client, right?
+OhShit errors can be wrapped in multiple layers, so that sensitive error
+information can be hidden from the public. Meanwhile, a helpful causation
+chain mechanism allows precise capture of exactly what went wrong.
 
 ## Getting Started
 ```sh
@@ -41,13 +44,34 @@ You can also add more information
 throw OhShit('something_bad', {
   status: 404,
   message: 'Oops!',
-  data: { details: 'here' },
-  error: new Error('original error')
+  details: 'here',
+  cause: new Error('original error')
 });
 
 // 404 - Oops!
-// err.original -> [Error: original error]
-// err.data -> { details: 'here' }
+// err.cause -> [Error: original error]
+// err.details -> { details: 'here' }
+```
+
+When you need to send an error response, you can do this
+```js
+throw OhShit('auth-failed', {
+  cause: OhShit('user-not-found')
+});
+```
+```js
+function(err, req, res, next) {
+  res
+    .status(err.status)
+    .send(err.summary());
+}
+```
+
+Meanwhile, you can access the entire causation chain by doing this
+```js
+const data = err.summary(true);
+
+/* Now you can send this off to Sentry or write to logs */
 ```
 
 
