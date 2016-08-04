@@ -60,7 +60,8 @@ test('uninflatable cause', t => {
        details: {},
        message: 'Not Found',
        stack: 'NotFoundError: Not Found\n    at OhShitError (/Users/denis/Projects/personal/oh-shit/lib/error.js:57:10)\n    at OhShit (/Users/denis/Projects/personal/oh-shit/lib/index.js:16:10)\n    at repl:2:32\n    at REPLServer.defaultEval (repl.js:262:27)\n    at bound (domain.js:287:14)\n    at REPLServer.runBound [as eval] (domain.js:300:12)\n    at REPLServer.<anonymous> (repl.js:431:12)\n    at emitOne (events.js:82:20)\n    at REPLServer.emit (events.js:169:7)\n    at REPLServer.Interface._onLine (readline.js:211:10)',
-       cause: null
+       cause: null,
+       extra: 'property'
      }
    };
    const e = OhShit.inflate(d);
@@ -70,5 +71,6 @@ test('uninflatable cause', t => {
    t.true(e.cause instanceof OhShit.Error);
    t.is(e.name, 'InternalServerError');
    t.is(e.cause.name, 'NotFoundError');
+   t.is(e.cause.details.extra, 'property');
 
 });

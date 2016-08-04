@@ -152,7 +152,14 @@ class OhShitError extends Error {
         .take(3)
         .map('name')
         .join(' ← ');
-      if (chain.length > 3) { summary.name = `${summary.name} ...`; }
+      summary.message = _(chain)
+        .take(3)
+        .map('message')
+        .join(' ← ');
+      if (chain.length > 3) {
+        summary.name = `${summary.name} ...`;
+        summary.message = `${summary.message} ...`;
+      }
 
       /* Include causes path */
       summary.causes = _.map(chain, i => _.pick(i, ...fields, 'stack'));
@@ -197,12 +204,8 @@ class OhShitError extends Error {
 
     /* Construct the code and opts object */
     const code = data.code;
-    const opts = {
-      name: data.name,
-      status: data.status,
-      message: data.message,
-      cause: OhShitError.inflate(data.cause)
-    };
+    const opts = _.omit(data, 'stack', 'details');
+    opts.cause = OhShitError.inflate(data.cause);
 
 
     /* Construct the new OhShitError object */
@@ -211,7 +214,7 @@ class OhShitError extends Error {
 
     /* Overwrite the stack trace */
     error.stack = data.stack;
-    error.details = data.details;
+    _.assign(error.details, data.details);
 
 
     return error;
