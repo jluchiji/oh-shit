@@ -16,7 +16,7 @@ test(t => {
   const e = OhShit(500, { cause: OhShit(404) });
   const s = e.toString();
 
-  t.is(s, 'OhShitError: Internal Server Error');
+  t.is(s, 'OhShitError: InternalServerError');
 
 });
 
@@ -26,7 +26,7 @@ test('all = true', t => {
   const e = OhShit(500, { cause: OhShit(404) });
   const s = e.toString(true);
 
-  t.is(s, 'OhShitError: Internal Server Error ← Not Found');
+  t.is(s, 'OhShitError: InternalServerError ← NotFoundError');
 
 });
 
@@ -42,6 +42,6 @@ test('long chain', t => {
   });
   const s = e.toString(true);
 
-  t.is(s, 'OhShitError: Internal Server Error ← Not Found ← Bad Request ...');
+  t.is(s, 'OhShitError: InternalServerError ← NotFoundError ← BadRequestError ...');
 
 });

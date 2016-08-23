@@ -54,6 +54,10 @@ class OhShitError extends Error {
     });
 
 
+    /* If meta contains a code, replace the original code */
+    if (meta.code) { code = meta.code; }
+
+
     /* Generate the default name */
     if (!meta.name) {
       meta.name = _

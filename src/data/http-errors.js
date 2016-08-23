@@ -12,97 +12,116 @@ module.exports = {
      */
   400: {
     status: 400,
-    name: 'Bad Request',
+    code: 'bad-request',
+    name: 'BadRequestError',
     message: 'Bad Request'
   },
   401: {
     status: 401,
-    name: 'Unauthorized',
+    code: 'unauthorized',
+    name: 'UnauthorizedError',
     message: 'Unauthorized'
   },
   402: {
     status: 402,
-    name: 'Payment Required',
+    code: 'payment-required',
+    name: 'PaymentRequiredError',
     message: 'Payment Required'
   },
   403: {
     status: 403,
-    name: 'Forbidden',
+    code: 'forbidden',
+    name: 'ForbiddenError',
     message: 'Forbidden'
   },
   404: {
     status: 404,
-    name: 'Not Found',
+    code: 'not-found',
+    name: 'NotFoundError',
     message: 'Not Found'
   },
   405: {
     status: 405,
-    name: 'Method Not Allowed',
+    code: 'method-not-allowed',
+    name: 'MethodNotAllowedError',
     message: 'Method Not Allowed'
   },
   406: {
     status: 406,
-    name: 'Not Acceptable',
+    code: 'not-acceptable',
+    name: 'NotAcceptableError',
     message: 'Not Acceptable'
   },
   407: {
     status: 407,
-    name: 'Proxy Authentication Required',
+    code: 'proxy-authentication-required',
+    name: 'ProxyAuthenticationRequiredError',
     message: 'Proxy Authentication Required'
   },
   408: {
     status: 408,
-    name: 'Request Timeout',
+    code: 'request-timeout',
+    name: 'RequestTimeoutError',
     message: 'Request Timeout'
   },
   409: {
     status: 409,
-    name: 'Conflict',
+    code: 'conflict',
+    name: 'ConflictError',
     message: 'Conflict'
   },
   410: {
     status: 410,
-    name: 'Gone',
+    code: 'gone',
+    name: 'GoneError',
     message: 'Gone'
   },
   411: {
     status: 411,
-    name: 'Length Required',
+    code: 'length-required',
+    name: 'LengthRequiredError',
     message: 'Length Required'
   },
   412: {
     status: 412,
-    name: 'Precondition Failed',
+    code: 'precondition-failed',
+    name: 'PreconditionFailedError',
     message: 'Precondition Failed'
   },
   413: {
     status: 413,
-    name: 'Request Entity Too Large',
+    code: 'request-entity-too-large',
+    name: 'RequestEntityTooLargeError',
     message: 'Request Entity Too Large'
   },
   414: {
     status: 414,
-    name: 'Request-URI Too Long',
+    code: 'request-uri-too-long',
+    name: 'RequestUriTooLongError',
     message: 'Request-URI Too Long'
   },
   415: {
     status: 415,
-    name: 'Unsupported Media Type',
+    code: 'unsupported-media-type',
+    name: 'UnsupportedMediaTypeError',
     message: 'Unsupported Media Type'
   },
   416: {
     status: 416,
-    name: 'Requested Range Not Satisfiable',
+    code: 'requested-range-not-satisfiable',
+    name: 'RequestedRangeNotSatisfiableError',
     message: 'Requested Range Not Satisfiable'
   },
   417: {
     status: 417,
-    name: 'Expectation Failed',
+    code: 'expectation-failed',
+    name: 'ExpectationFailedError',
     message: 'Expectation Failed'
   },
   426: {
     status: 426,
-    name: 'Upgrade Required',
+    code: 'upgrade-required',
+    name: 'UpgradeRequiredError',
     message: 'Upgrade Required'
   },
 
@@ -112,7 +131,8 @@ module.exports = {
      */
   418: {
     status: 418,
-    name: 'I am A Teapot',
+    code: 'i-am-a-teapot',
+    name: 'TeapotError',
     message: "I'm A Teapot"
   },
 
@@ -122,17 +142,20 @@ module.exports = {
      */
   422: {
     status: 422,
-    name: 'Unprocessable Entity',
+    code: 'unprocessable-entity',
+    name: 'UnprocessableEntityError',
     message: 'Unprocessable Entity'
   },
   423: {
     status: 423,
-    name: 'Locked',
+    code: 'locked',
+    name: 'LockedError',
     message: 'Locked'
   },
   424: {
     status: 424,
-    name: 'Failed Dependency',
+    code: 'failed-dependency',
+    name: 'FailedDependencyError',
     message: 'Failed Dependency'
   },
 
@@ -142,17 +165,20 @@ module.exports = {
      */
   428: {
     status: 428,
-    name: 'Precondition Required',
+    code: 'precondition-required',
+    name: 'PreconditionRequiredError',
     message: 'Precondition Required'
   },
   429: {
     status: 429,
-    name: 'Too Many Requests',
+    code: 'too-many-requests',
+    name: 'TooManyRequestsError',
     message: 'Too Many Requests'
   },
   431: {
     status: 431,
-    name: 'Header Fields Too Large',
+    code: 'header-fields-too-large',
+    name: 'HeaderFieldsTooLargeError',
     message: 'Header Fields Too Large'
   },
 
@@ -162,7 +188,8 @@ module.exports = {
      */
   451: {
     status: 451,
-    name: 'Unavailable For Legal Reasons',
+    code: 'unavailable-for-legal-reasons',
+    name: 'UnavailableForLegalReasonsError',
     message: 'Unavailable For Legal Reasons'
   },
 
@@ -172,32 +199,38 @@ module.exports = {
      */
   500: {
     status: 500,
-    name: 'Internal Server Error',
+    code: 'internal-server-error',
+    name: 'InternalServerError',
     message: 'Internal Server Error'
   },
   501: {
     status: 501,
-    name: 'Not Implemented',
+    code: 'not-implemented',
+    name: 'NotImplementedError',
     message: 'Not Implemented'
   },
   502: {
     status: 502,
-    name: 'Bad Gateway',
+    code: 'bad-gateway',
+    name: 'BadGatewayError',
     message: 'Bad Gateway'
   },
   503: {
     status: 503,
-    name: 'Service Unavailable',
+    code: 'service-unavailable',
+    name: 'ServiceUnavailableError',
     message: 'Service Unavailable'
   },
   504: {
     status: 504,
-    name: 'Gateway Timeout',
+    code: 'gateway-timeout',
+    name: 'GatewayTimeoutError',
     message: 'Gateway Timeout'
   },
   505: {
     status: 505,
-    name: 'HTTP Version Not Supported',
+    code: 'http-version-not-supported',
+    name: 'HttpVersionNotSupportedError',
     message: 'HTTP Version Not Supported'
   },
 
@@ -207,7 +240,8 @@ module.exports = {
      */
   506: {
     status: 506,
-    name: 'Variant Also Negotiates',
+    code: 'variant-also-negotiates',
+    name: 'VariantAlsoNegotiatesError',
     message: 'Variant Also Negotiates'
   },
 
@@ -217,7 +251,8 @@ module.exports = {
      */
   507: {
     status: 507,
-    name: 'Insufficient Storage',
+    code: 'insufficient-storage',
+    name: 'InsufficientStorageError',
     message: 'Insufficient Storage'
   },
 
@@ -227,7 +262,8 @@ module.exports = {
      */
   508: {
     status: 508,
-    name: 'Loop Detected',
+    code: 'loop-detected',
+    name: 'LoopDetectedError',
     message: 'Loop Detected'
   },
 
@@ -237,7 +273,8 @@ module.exports = {
      */
   510: {
     status: 510,
-    name: 'Not Extended',
+    code: 'not-extended',
+    name: 'NotExtendedError',
     message: 'Not Extended'
   },
 
@@ -247,7 +284,8 @@ module.exports = {
      */
   511: {
     status: 511,
-    name: 'Network Authentication Required',
+    code: 'network-authentication-required',
+    name: 'NetworkAuthenticationRequiredError',
     message: 'Network Authentication Required'
   }
 
